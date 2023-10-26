@@ -1,0 +1,23 @@
+---
+version: "2.1"
+services:
+  rdesktop:
+    image: nt-arch-orig
+    container_name: rdesktop-nt
+    security_opt:
+      - seccomp:unconfined #optional
+    environment:
+      - PUID=82
+      - PGID=82
+      - TZ=America/Phoenix
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock #optional
+      - $PWD/config:/config #optional
+        #- /data/dockers/production/nextcloud/data/data/nishant/files/MDKB:/data/obsidian
+      - $PWD/data:/opt
+    ports:
+      - 3390:3389
+        #devices:
+      #  - /dev/dri:/dev/dri #optional
+    shm_size: "1gb" #optional
+    restart: unless-stopped
